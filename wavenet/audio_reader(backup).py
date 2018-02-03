@@ -4,16 +4,11 @@ import random
 import re
 import threading
 
+import librosa
 import numpy as np
 import tensorflow as tf
 
-FILE_PATTERN = r'p([0-9]+)_([0-9]+)\.entropy'
-
-def get_arr(f_path):
-    x = []
-    for l in open(f_path):
-        x.append(float(l.strip()))
-    return np.array(x)
+FILE_PATTERN = r'p([0-9]+)_([0-9]+)\.wav'
 
 
 def get_category_cardinality(files):
@@ -37,7 +32,7 @@ def randomize_files(files):
         yield files[file_index]
 
 
-def find_files(directory, pattern='*.entropy'):
+def find_files(directory, pattern='*.wav'):
     '''Recursively finds all files matching the pattern.'''
     files = []
     for root, dirnames, filenames in os.walk(directory):
@@ -61,9 +56,22 @@ def load_generic_audio(directory, sample_rate):
         else:
             # The file name matches the pattern for containing ids.
             category_id = int(ids[0][0])
-        audio = get_arr(filename)
+        audio, _ = librosa.load(filename, sr=sample_rate, mono=True)
         audio = audio.reshape(-1, 1)
         yield audio, filename, category_id
+
+
+def trim_silence(audio, threshold, frame_length=2048):
+    '''Removes silence at the beginning and end of a sample.'''
+    if audio.size < frame_length:
+        frame_length = audio.size
+    energy = librosa.feature.rmse(audio, frame_length=frame_length)
+    frames = np.nonzero(energy > threshold)
+    indices = librosa.core.frames_to_samples(frames)[1]
+
+    # Note: indices can be an empty array, if the whole audio was silence.
+    return audio[indices[0]:indices[-1]] if indices.size else audio[0:0]
+
 
 def not_all_have_id(files):
     ''' Return true iff any of the filenames does not conform to the pattern
@@ -151,6 +159,15 @@ class AudioReader(object):
                 if self.coord.should_stop():
                     stop = True
                     break
+                if self.silence_threshold is not None:
+                    # Remove silence
+                    audio = trim_silence(audio[:, 0], self.silence_threshold)
+                    audio = audio.reshape(-1, 1)
+                    if audio.size == 0:
+                        print("Warning: {} was ignored as it contains only "
+                              "silence. Consider decreasing trim_silence "
+                              "threshold, or adjust volume of the audio."
+                              .format(filename))
 
                 audio = np.pad(audio, [[self.receptive_field, 0], [0, 0]],
                                'constant')

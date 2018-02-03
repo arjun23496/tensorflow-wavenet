@@ -76,7 +76,7 @@ def not_all_have_id(files):
     return False
 
 
-class AudioReader(object):
+class EntropyReader(object):
     '''Generic background audio reader that preprocesses audio files
     and enqueues them into a TensorFlow queue.'''
 
