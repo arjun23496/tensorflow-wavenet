@@ -271,9 +271,14 @@ def main():
                            # feed_dict={samples: np.reshape(waveform, [-1, 1])})
     # writer.add_summary(summary_out)
 
+    waveform_temp = waveform.copy()
+
+    for w in range(len(waveform_temp)):
+        waveform[w] = waveform_temp[w]
+
     # Save the result as a wav file.
     if args.wav_out_path:
-        out = sess.run(decode, feed_dict={samples: waveform})
+        sess.run(decode, feed_dict={samples: waveform})
         # out = waveform
         write_wav(out, wavenet_params['sample_rate'], args.wav_out_path)
 
