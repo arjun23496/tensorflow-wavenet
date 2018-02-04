@@ -16,6 +16,18 @@ def get_arr(f_path):
     return np.array(x)
 
 
+def trim_silence(audio, threshold, frame_length=2048):
+    '''Removes silence at the beginning and end of a sample.'''
+    if audio.size < frame_length:
+        frame_length = audio.size
+    energy = librosa.feature.rmse(audio, frame_length=frame_length)
+    frames = np.nonzero(energy > threshold)
+    indices = librosa.core.frames_to_samples(frames)[1]
+
+    # Note: indices can be an empty array, if the whole audio was silence.
+    return audio[indices[0]:indices[-1]] if indices.size else audio[0:0]
+
+
 def get_category_cardinality(files):
     id_reg_expression = re.compile(FILE_PATTERN)
     min_id = None
