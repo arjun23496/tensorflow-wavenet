@@ -277,7 +277,8 @@ def main():
     print(waveform)
 
     for w in range(len(waveform_temp)):
-        waveform[w] = waveform_temp[w][0]
+        if type(waveform_temp[w]) != int:
+            waveform[w] = waveform_temp[w][0]
 
     # Save the result as a wav file.
     if args.wav_out_path:
