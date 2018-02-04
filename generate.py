@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime
 import json
 import os
+import copy
 
 import librosa
 import numpy as np
@@ -271,7 +272,7 @@ def main():
                            # feed_dict={samples: np.reshape(waveform, [-1, 1])})
     # writer.add_summary(summary_out)
 
-    waveform_temp = waveform.copy()
+    waveform_temp = copy.deepcopy(waveform)
 
     for w in range(len(waveform_temp)):
         waveform[w] = waveform_temp[w]
