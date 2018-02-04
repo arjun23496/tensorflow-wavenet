@@ -277,6 +277,8 @@ def main():
     print(waveform)
 
     for w in range(len(waveform_temp)):
+        print type(waveform_temp[w])
+        print waveform_temp[w]
         if type(waveform_temp[w]) != int:
             waveform[w] = waveform_temp[w][0]
 
