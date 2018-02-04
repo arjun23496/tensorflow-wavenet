@@ -112,7 +112,8 @@ def get_arguments():
 
 def write_wav(waveform, sample_rate, filename):
     y = np.array(waveform)
-    librosa.output.write_wav(filename, y, sample_rate)
+    # librosa.output.write_wav(filename, y, sample_rate)
+    np.save(filename, y)
     print('Updated wav file at {}'.format(filename))
 
 

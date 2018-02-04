@@ -1,0 +1,1 @@
+python train.py --l2_regularization_strength 1e-5 --silence_threshold 0 --data_dir ../data/corpus
