@@ -122,7 +122,10 @@ def create_seed(filename,
                 quantization_channels,
                 window_size,
                 silence_threshold=SILENCE_THRESHOLD):
-    audio, _ = librosa.load(filename, sr=sample_rate, mono=True)
+    # audio, _ = librosa.load(filename, sr=sample_rate, mono=True)
+
+    audio = audio_reader.get_arr(file)
+    audio = audio.reshape(-1, 1)
     audio = audio_reader.trim_silence(audio, silence_threshold)
 
     quantized = mu_law_encode(audio, quantization_channels)
