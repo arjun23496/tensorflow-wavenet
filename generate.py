@@ -275,7 +275,7 @@ def main():
     waveform_temp = copy.deepcopy(waveform)
 
     for w in range(len(waveform_temp)):
-        waveform[w] = waveform_temp[w]
+        waveform[w] = waveform_temp[w][0]
 
     # Save the result as a wav file.
     if args.wav_out_path:
