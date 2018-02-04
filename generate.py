@@ -267,9 +267,9 @@ def main():
     writer = tf.summary.FileWriter(logdir)
     tf.summary.audio('generated', decode, wavenet_params['sample_rate'])
     summaries = tf.summary.merge_all()
-    summary_out = sess.run(summaries,
-                           feed_dict={samples: np.reshape(waveform, [-1, 1])})
-    writer.add_summary(summary_out)
+    # summary_out = sess.run(summaries,
+                           # feed_dict={samples: np.reshape(waveform, [-1, 1])})
+    # writer.add_summary(summary_out)
 
     # Save the result as a wav file.
     if args.wav_out_path:
