@@ -274,7 +274,7 @@ def main():
 
     waveform_temp = copy.deepcopy(waveform)
 
-    print waveform
+    print(waveform)
 
     for w in range(len(waveform_temp))
         waveform[w] = waveform_temp[w][0]
