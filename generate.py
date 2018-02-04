@@ -126,7 +126,7 @@ def create_seed(filename,
 
     audio = audio_reader.get_arr(filename)
     audio = audio.reshape(-1, 1)
-    # audio = audio_reader.trim_silence(audio, silence_threshold)
+    audio = audio_reader.trim_silence(audio, silence_threshold)
 
     quantized = mu_law_encode(audio, quantization_channels)
     cut_index = tf.cond(tf.size(quantized) < tf.constant(window_size),
