@@ -273,7 +273,8 @@ def main():
 
     # Save the result as a wav file.
     if args.wav_out_path:
-        out = sess.run(decode, feed_dict={samples: waveform})
+        # out = sess.run(decode, feed_dict={samples: waveform})
+        out = waveform
         write_wav(out, wavenet_params['sample_rate'], args.wav_out_path)
 
     print('Finished generating. The result can be viewed in TensorBoard.')
