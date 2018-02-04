@@ -124,7 +124,7 @@ def create_seed(filename,
                 silence_threshold=SILENCE_THRESHOLD):
     # audio, _ = librosa.load(filename, sr=sample_rate, mono=True)
 
-    audio = audio_reader.get_arr(file)
+    audio = audio_reader.get_arr(filename)
     audio = audio.reshape(-1, 1)
     audio = audio_reader.trim_silence(audio, silence_threshold)
 
