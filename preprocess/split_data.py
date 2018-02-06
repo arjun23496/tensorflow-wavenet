@@ -41,23 +41,23 @@ global_max = -1
 
 print "Computing maximum and minimum"
 
-for file_path in list_files("/home/akaruvally/data_main/"):
+# for file_path in list_files("/home/akaruvally/data_main/"):
     
-    print file_path," : ",
+#     print file_path," : ",
 
-    a = np.loadtxt(file_path)
+#     a = np.loadtxt(file_path)
 
-    local_max = np.max(a)
-    local_min = np.min(a)
+#     local_max = np.max(a)
+#     local_min = np.min(a)
 
-    if global_max == -1 or global_max < local_max:
-        global_max = local_max
+#     if global_max == -1 or global_max < local_max:
+#         global_max = local_max
 
-    if global_min == -1 or global_min > local_min:
-        global_min = local_min
+#     if global_min == -1 or global_min > local_min:
+#         global_min = local_min
 
-print global_max
-print global_min
+global_max = 17
+global_min = 0
 
 global_mean = (global_max+global_min)/2
 
