@@ -72,5 +72,5 @@ with open("file_index_map.txt", "w") as f:
 
         arr = (arr - global_mean)/(global_max - global_min)
 
-        split_arr_into_files(, "p" + str(entropy_file_index), "/home/arjun/chaos/work/corpus/entropy_files/p" + str(entropy_file_index) + "/")
+        split_arr_into_files(, "p" + str(entropy_file_index), "/home/akaruvally/entropy_files/p" + str(entropy_file_index) + "/")
         print file_path," : complete"
