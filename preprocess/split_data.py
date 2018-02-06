@@ -23,8 +23,10 @@ def split_arr_into_files(entropy_vals, file_id, output_dir):
         if arr_index >= len_entropy_vals:
             break
 
+
 def list_files(folder_path):
     return [join(folder_path, f) for f in listdir(folder_path) if isfile(join(folder_path, f))]
+
 
 def get_arr(f_path):
     x = []
@@ -34,8 +36,34 @@ def get_arr(f_path):
 
 
 entropy_file_index = 0
+global_min = -1
+global_max = -1
+
+print "Computing maximum and minimum"
+
+for file_path in list_files("/home/arjun/chaos/work/data/"):
+    
+    print file_path," : ",
+
+    a = np.loadtxt(file_path)
+
+    local_max = np.max(a)
+    local_min = np.min(a)
+
+    if global_max == -1 or global_max < local_max:
+        global_max = local_max
+
+    if global_min == -1 or global_min > local_min:
+        global_min = local_min
+
+print global_max
+print global_min
+
+print "Saving files"
+
 with open("file_index_map.txt", "w") as f:
     for file_path in list_files("/home/arjun/chaos/work/data/"):
         entropy_file_index+=1
         f.write(str(entropy_file_index) + "," + file_path.split("/")[-1] + "\n")
         split_arr_into_files(get_arr(file_path), "p" + str(entropy_file_index), "/home/arjun/chaos/work/corpus/entropy_files/p" + str(entropy_file_index) + "/")
+        print file_path," : complete"
