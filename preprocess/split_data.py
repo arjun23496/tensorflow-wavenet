@@ -59,11 +59,18 @@ for file_path in list_files("/home/akaruvally/data_main/"):
 print global_max
 print global_min
 
+global_mean = (global_max+global_min)/2
+
 print "Saving files"
 
 with open("file_index_map.txt", "w") as f:
     for file_path in list_files("/home/akaruvally/data_main/"):
         entropy_file_index+=1
         f.write(str(entropy_file_index) + "," + file_path.split("/")[-1] + "\n")
-        split_arr_into_files(get_arr(file_path), "p" + str(entropy_file_index), "/home/arjun/chaos/work/corpus/entropy_files/p" + str(entropy_file_index) + "/")
+        
+        arr = get_arr(file_path)
+
+        arr = (arr - global_mean)/(global_max - global_min)
+
+        split_arr_into_files(, "p" + str(entropy_file_index), "/home/arjun/chaos/work/corpus/entropy_files/p" + str(entropy_file_index) + "/")
         print file_path," : complete"
