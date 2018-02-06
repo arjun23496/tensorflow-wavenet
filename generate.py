@@ -277,16 +277,16 @@ def main():
     print(waveform)
 
     for w in range(len(waveform_temp)):
-        print type(waveform_temp[w])
-        print waveform_temp[w]
-        if type(waveform_temp[w]) != int:
+        print(type(waveform_temp[w]))
+        print(waveform_temp[w])
+        if type(waveform_temp[w]) == list:
             waveform[w] = waveform_temp[w][0]
 
     # Save the result as a wav file.
     if args.wav_out_path:
-        sess.run(decode, feed_dict={samples: waveform})
+	out = sess.run(decode, feed_dict={samples: waveform})
         # out = waveform
-        write_wav(out, wavenet_params['sample_rate'], args.wav_out_path)
+	write_wav(out, wavenet_params['sample_rate'], args.wav_out_path)
 
     print('Finished generating. The result can be viewed in TensorBoard.')
 
