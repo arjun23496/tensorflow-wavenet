@@ -41,7 +41,7 @@ global_max = -1
 
 print "Computing maximum and minimum"
 
-for file_path in list_files("/home/arjun/chaos/work/data/"):
+for file_path in list_files("/home/akaruvally/data_main/"):
     
     print file_path," : ",
 
@@ -62,7 +62,7 @@ print global_min
 print "Saving files"
 
 with open("file_index_map.txt", "w") as f:
-    for file_path in list_files("/home/arjun/chaos/work/data/"):
+    for file_path in list_files("/home/akaruvally/data_main/"):
         entropy_file_index+=1
         f.write(str(entropy_file_index) + "," + file_path.split("/")[-1] + "\n")
         split_arr_into_files(get_arr(file_path), "p" + str(entropy_file_index), "/home/arjun/chaos/work/corpus/entropy_files/p" + str(entropy_file_index) + "/")
