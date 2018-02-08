@@ -2,7 +2,7 @@ import os
 import sys
 
 import matplotlib
-matplotlib.use('GTK')
+matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np
