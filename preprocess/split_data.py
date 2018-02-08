@@ -32,7 +32,7 @@ def get_arr(f_path):
     x = []
     for l in open(f_path):
         x.append(l.strip())
-    return np.array(x)
+    return np.array(x, dtype=float)
 
 
 entropy_file_index = 0
@@ -69,8 +69,10 @@ with open("file_index_map.txt", "w") as f:
         f.write(str(entropy_file_index) + "," + file_path.split("/")[-1] + "\n")
         
         arr = get_arr(file_path)
-
+	print arr
         arr = (arr - global_mean)/(global_max - global_min)
+	
+	arr = arr.astype(str)	
 
         split_arr_into_files(arr, "p" + str(entropy_file_index), "/home/akaruvally/data/entropy_files/p" + str(entropy_file_index) + "/")
         print file_path," : complete"
