@@ -7,6 +7,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
+print sys.argv
+
 generated_file = sys.argv[1]
 save_dir = sys.argv[3]
 index = int(sys.argv[4])

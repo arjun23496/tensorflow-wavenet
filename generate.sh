@@ -4,6 +4,14 @@ for filename in ../data/test-corpus/*.entropy; do
 	read -ra ADDR <<< "$string"
 	index="${ADDR[0]}"
 	count="${ADDR[1]}"
-	python generate.py --samples 8000 --wav_out_path results/output/speaker_p$($index)_$($count).npy --gc_cardinality=120 --gc_channels=119 --gc_id=$($index) --wav_seed ../data/test-corpus/$($filename) logdir/train/2018-02-06T21-26-11/model.ckpt-54350
-	python plotter.py output/speaker_p$($index)_$($count).npy results/figures $($index) $($count) 
+	wav_out_path="results/output/speaker_p$index_$count.npy"
+	wav_seed="$filename"
+	figure_path="results/figures"
+	echo $index
+	echo $count
+	echo $wav_out_path
+	echo $wav_seed
+	echo $figure_path
+	python generate.py --samples 8000 --wav_out_path $wav_out_path --gc_cardinality=120 --gc_channels=119 --gc_id $index --wav_seed $wav_seed logdir/train/2018-02-06T21-26-11/model.ckpt-54350
+	python plotter.py $wav_out_path $figure_path $index $count 
 done
